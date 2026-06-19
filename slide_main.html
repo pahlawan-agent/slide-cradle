@@ -4430,82 +4430,65 @@
                 </div>
             </section>
             <section id="slide-org-chart">
-                <div class="pad-sm"
-                    style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%;">
+                <div class="pad-sm" style="display:flex; flex-direction:column; justify-content:center; height:100%;">
                     <span class="lbl" style="color:var(--gold);">Organization</span>
-                    <h2
-                        style="font-family:'DM Serif Display',serif; font-size:36px; color:var(--ink); letter-spacing:-0.8px; margin-bottom:8px;">
-                        Organization Chart</h2>
-                    <p
-                        style="font-size:14px; color:var(--muted); font-weight:300; line-height:1.7; margin-bottom:28px;">
-                        A lean structure prioritizing product engineering and content.</p>
-                    <div style="transform:scale(0.85); transform-origin:top center;">
-                        <!-- Org Chart Structure -->
-                        <div style="display:flex; flex-direction:column; align-items:center; margin-top:0px;">
-                            <!-- Level 1: CEO -->
-                            <div
-                                style="background:white; border:2px solid var(--blue); border-radius:12px; padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.06); width:300px; text-align:center; position:relative; z-index:2;">
-                                <div
-                                    style="width:40px; height:40px; border-radius:10px; background:var(--blue-lt); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-family:'DM Serif Display',serif; font-size:20px; color:var(--blue); font-weight:600;">
-                                    MH</div>
-                                <h4 style="font-size:18px; font-weight:700; color:var(--ink); margin-bottom:4px;">
-                                    Mohamad Hassan</h4>
-                                <div style="font-size:13px; color:var(--muted); font-weight:500; margin-bottom:8px;">
-                                    Co-Founder</div>
-                                <div style="display:flex; justify-content:center; gap:6px;">
-                                    <span class="chip" style="font-size:10px; padding:4px 8px;">Product</span>
-                                    <span class="chip" style="font-size:10px; padding:4px 8px;">Ed-Tech</span>
-                                </div>
-                            </div>
-
-                            <!-- Connector down from CEO -->
-                            <div style="width:2px; height:24px; background:var(--border);"></div>
-
-                            <!-- Horizontal Line Connector -->
-                            <div style="width:360px; height:2px; background:var(--border);"></div>
-
-                            <!-- Vertical Lines for Level 2 -->
-                            <div style="width:360px; display:flex; justify-content:space-between;">
-                                <div style="width:2px; height:24px; background:var(--border);"></div>
-                                <div style="width:2px; height:24px; background:var(--border);"></div>
-                            </div>
-
-                            <!-- Level 2 -->
-                            <div style="display:flex; gap:80px; justify-content:center;">
-
-                                <!-- CTO -->
-                                <div
-                                    style="background:white; border:2px solid var(--teal); border-radius:12px; padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.06); width:280px; text-align:center; position:relative; z-index:2;">
-                                    <div
-                                        style="width:36px; height:36px; border-radius:10px; background:var(--teal-lt); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-family:'DM Serif Display',serif; font-size:16px; color:var(--teal); font-weight:600;">
-                                        AR</div>
-                                    <h4 style="font-size:17px; font-weight:700; color:var(--ink); margin-bottom:4px;">
-                                        Abdul Rahman</h4>
-                                    <div
-                                        style="font-size:13px; color:var(--muted); font-weight:500; margin-bottom:8px;">
-                                        Co-Founder &amp; CTO</div>
-                                    <span class="chip"
-                                        style="font-size:10px; padding:4px 8px; background:var(--bg); border:1px solid var(--border); color:var(--ink);">AI
-                                        / ML & Engineering Lead</span>
-                                </div>
-
-                                <!-- Software Engineer -->
-                                <div
-                                    style="background:white; border:2px solid var(--purple); border-radius:12px; padding:16px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.06); width:280px; text-align:center; position:relative; z-index:2;">
-                                    <div
-                                        style="width:36px; height:36px; border-radius:10px; background:var(--purple-lt); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-family:'DM Serif Display',serif; font-size:16px; color:var(--purple); font-weight:600;">
-                                        MA</div>
-                                    <h4 style="font-size:17px; font-weight:700; color:var(--ink); margin-bottom:4px;">
-                                        Muaz Arief</h4>
-                                    <div
-                                        style="font-size:13px; color:var(--muted); font-weight:500; margin-bottom:8px;">
-                                        Co-Founder &amp; Lead Engineer</div>
-                                    <span class="chip"
-                                        style="font-size:10px; padding:4px 8px; background:var(--bg); border:1px solid var(--border); color:var(--ink);">iOS
-                                        & Android Development</span>
-                                </div>
+                    <h2 style="font-family:'DM Serif Display',serif; font-size:36px; color:var(--ink); letter-spacing:-0.8px; margin-bottom:8px;">
+                        Flat Structure</h2>
+                    <p style="font-size:14px; color:var(--muted); font-weight:300; line-height:1.7; margin-bottom:32px; max-width:780px;">
+                        A founder-led, non-hierarchical team &mdash; three co-founders as peers, each owning a core pillar of the product. No layers, fast decisions.</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; align-items:start;">
+                    <div style="box-sizing:border-box; background:white; border:1px solid var(--border); border-top:3px solid var(--blue); border-radius:16px; padding:26px 24px; box-shadow:0 10px 30px rgba(0,0,0,0.05); display:flex; flex-direction:column;">
+                        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
+                            <div style="width:48px; height:48px; border-radius:12px; background:var(--blue-lt); display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display',serif; font-size:18px; color:var(--blue); font-weight:600; flex-shrink:0;">MH</div>
+                            <div>
+                                <h4 style="font-size:17px; font-weight:700; color:var(--ink); line-height:1.2;">Mohamad Hassan</h4>
+                                <div style="font-size:12px; color:var(--blue); font-weight:600; margin-top:2px;">Co-Founder</div>
                             </div>
                         </div>
+                        <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:12px;">
+                            <div>
+                                <div style="font-size:9px; font-weight:700; letter-spacing:0.7px; text-transform:uppercase; color:var(--muted); margin-bottom:3px;">Experience</div>
+                                <div style="font-size:12px; color:var(--ink); line-height:1.5;">Tech-Lead Manager &mdash; Google, Switzerland</div>
+                            </div>
+                            <div>
+                                <div style="font-size:9px; font-weight:700; letter-spacing:0.7px; text-transform:uppercase; color:var(--muted); margin-bottom:3px;">Education</div>
+                                <div style="font-size:12px; color:var(--ink); line-height:1.5;">MSc Statistics, ETH Z&uuml;rich (ETHZ)<br>BSc Computer Science, Carnegie Mellon University</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:16px;"><span class="chip" style="font-size:10px; padding:4px 8px;">Product</span><span class="chip" style="font-size:10px; padding:4px 8px;">Ed-Tech</span></div>
+                    </div>
+                    <div style="box-sizing:border-box; background:white; border:1px solid var(--border); border-top:3px solid var(--teal); border-radius:16px; padding:26px 24px; box-shadow:0 10px 30px rgba(0,0,0,0.05); display:flex; flex-direction:column;">
+                        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
+                            <div style="width:48px; height:48px; border-radius:12px; background:var(--teal-lt); display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display',serif; font-size:18px; color:var(--teal); font-weight:600; flex-shrink:0;">AR</div>
+                            <div>
+                                <h4 style="font-size:17px; font-weight:700; color:var(--ink); line-height:1.2;">Abdul Rahman</h4>
+                                <div style="font-size:12px; color:var(--teal); font-weight:600; margin-top:2px;">Co-Founder &amp; CTO</div>
+                            </div>
+                        </div>
+                        <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:12px;">
+                            <div>
+                                <div style="font-size:9px; font-weight:700; letter-spacing:0.7px; text-transform:uppercase; color:var(--muted); margin-bottom:3px;">Focus</div>
+                                <div style="font-size:12px; color:var(--ink); line-height:1.5;">AI / ML &amp; Engineering Lead</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:16px;"><span class="chip" style="font-size:10px; padding:4px 8px;">AI / ML</span></div>
+                    </div>
+                    <div style="box-sizing:border-box; background:white; border:1px solid var(--border); border-top:3px solid var(--purple); border-radius:16px; padding:26px 24px; box-shadow:0 10px 30px rgba(0,0,0,0.05); display:flex; flex-direction:column;">
+                        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
+                            <div style="width:48px; height:48px; border-radius:12px; background:var(--purple-lt); display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display',serif; font-size:18px; color:var(--purple); font-weight:600; flex-shrink:0;">MA</div>
+                            <div>
+                                <h4 style="font-size:17px; font-weight:700; color:var(--ink); line-height:1.2;">Muaz Arief</h4>
+                                <div style="font-size:12px; color:var(--purple); font-weight:600; margin-top:2px;">Co-Founder &amp; Lead Engineer</div>
+                            </div>
+                        </div>
+                        <div style="border-top:1px solid var(--border); padding-top:14px; display:flex; flex-direction:column; gap:12px;">
+                            <div>
+                                <div style="font-size:9px; font-weight:700; letter-spacing:0.7px; text-transform:uppercase; color:var(--muted); margin-bottom:3px;">Focus</div>
+                                <div style="font-size:12px; color:var(--ink); line-height:1.5;">iOS &amp; Android Development</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:16px;"><span class="chip" style="font-size:10px; padding:4px 8px;">Mobile</span></div>
+                    </div>
                     </div>
                 </div>
             </section>
