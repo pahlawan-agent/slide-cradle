@@ -1,0 +1,2566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to PHP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0f1a;
+            --card-bg: rgba(25, 25, 40, 0.8);
+            --gradient-1: #ff6b6b;
+            --gradient-2: #4ecdc4;
+            --gradient-3: #45aaf2;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .reveal {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal .slides section {
+        height: auto;
+        min-height: 100%;
+        overflow-y: auto;
+        padding: 20px;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3 {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        .reveal h1 {
+            font-size: 3.5rem;
+            text-align: center;
+        }
+
+        .reveal h2 {
+            font-size: 2.5rem;
+        }
+
+        .reveal h3 {
+            font-size: 1.8rem;
+        }
+
+        .reveal p,
+        .reveal li {
+            font-size: 0.7rem;
+            color: white;
+        }
+        /* Tighter list spacing to reduce large gaps before following sections */
+        .reveal ul { margin: 0.2rem 0 0.35rem 1.2rem; }
+        .reveal li { margin: 0.15rem -50px; }
+        .reveal li ul { margin-top: 0.25rem; margin-bottom: 0.35rem; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-right: 20px;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .code-block {
+            background-color: #1a1a2e;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-variant-ligatures: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.06s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .copy-btn:active {
+            transform: translateY(1px);
+        }
+
+        .code-block::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+        }
+
+        .code-line {
+            margin: 5px 0;
+            color: white;
+            font-size: 0.7rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-variant-ligatures: none;
+            white-space: pre;
+            tab-size: 4;
+            -moz-tab-size: 4;
+        }
+
+        .comment {
+            color: #6c757d;
+        }
+
+        .keyword {
+            color: var(--gradient-1);
+        }
+
+        .string {
+            color: var(--gradient-2);
+        }
+
+        .function {
+            color: var(--gradient-3);
+        }
+
+        .two-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .progress {
+            color: var(--gradient-2) !important;
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .controls button {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 50% !important;
+        }
+
+        .controls button:hover {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        /* Array animation styles */
+        .array-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .array-element {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            min-width: 60px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .array-element:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .array-key {
+            font-size: 0.8rem;
+            color: var(--gradient-1);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .array-value {
+            font-size: 1rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .assoc-array-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .assoc-array-element {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .assoc-array-element:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .assoc-array-key {
+            font-size: 0.9rem;
+            color: var(--gradient-2);
+            font-weight: bold;
+        }
+
+        .assoc-array-value {
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0;
+            transform: translateX(10px);
+        }
+    </style>
+    <style>
+        /* Print / PDF: neutralize animations and ensure visibility */
+        @media print {
+            * { animation: none !important; transition: none !important; }
+            .reveal .slides section, .card, .code-block, .array-declaration, .array-result { opacity: 1 !important; transform: none !important; }
+            .floating-icon { display: none !important; }
+            .particles { display: none !important; }
+            #theme-toggle { display: none !important; }
+            #home-btn { display: none !important; }
+            .code-line { white-space: pre !important; tab-size: 4 !important; -moz-tab-size: 4 !important; }
+        }
+        
+        /* When using ?print-pdf with Reveal.js */
+        .print-pdf .reveal .slides section, .print-pdf .card, .print-pdf .code-block { opacity: 1 !important; transform: none !important; }
+        .print-pdf .floating-icon, .print-pdf .particles, .print-pdf #theme-toggle { display: none !important; }
+    </style>
+    <style>
+        /* Light/Dark theme overrides */
+        [data-theme="light"] body { background-color: #f7f9fc; }
+        [data-theme="light"] .reveal p,
+        [data-theme="light"] .reveal li { color: #0b0f14; }
+        [data-theme="light"] .reveal h1,
+        [data-theme="light"] .reveal h2,
+        [data-theme="light"] .reveal h3 { background: linear-gradient(45deg, #0057ff, #00b894, #6c5ce7); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        [data-theme="light"] .card { background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.08); }
+        [data-theme="light"] .code-block { background-color: #f3f5f9; color: #0b0f14; }
+        [data-theme="light"] .code-line { color: #0b0f14; }
+        [data-theme="light"] .comment { color: #5b6b7a; }
+        [data-theme="light"] .array-declaration,
+        [data-theme="light"] .code-input-wrapper,
+        [data-theme="light"] .array-result { background: rgba(255,255,255,0.95); border: 1px solid rgba(0,0,0,0.08); }
+        [data-theme="light"] .code-bracket { color: #0b0f14; }
+        [data-theme="light"] .index-input,
+        [data-theme="light"] .key-input { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08); }
+        
+        /* Beautiful Scrollbar (WebKit) */
+        ::-webkit-scrollbar { width: 12px; height: 12px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 10px;
+            border: 3px solid rgba(0,0,0,0);
+            background-clip: padding-box;
+        }
+        ::-webkit-scrollbar-thumb:hover { filter: brightness(1.05); }
+        
+        /* Firefox */
+        * { scrollbar-width: thin; scrollbar-color: var(--gradient-2) transparent; }
+        
+        /* Toggle button styles */
+        #theme-toggle {
+            width: 42px; height: 42px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 999px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.15);
+            transition: transform 180ms ease, box-shadow 220ms ease, background 220ms ease, color 220ms ease;
+        }
+        #theme-toggle:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 14px 28px rgba(0,0,0,0.4); }
+        #theme-toggle:active { transform: translateY(0) scale(0.98); }
+        
+        [data-theme="light"] #theme-toggle { box-shadow: 0 10px 24px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(0,0,0,0.08); }
+        
+        /* Subtle glow ring */
+        #theme-toggle::after {
+            content: ""; position: absolute; inset: -6px; border-radius: 999px;
+            background: radial-gradient(closest-side, rgba(124,255,196,0.18), rgba(88,209,255,0.15), transparent 70%);
+            opacity: 0.0; transition: opacity 220ms ease;
+        }
+        #theme-toggle:hover::after { opacity: 1; }
+
+        /* Home button */
+        #home-btn {
+            position: fixed; bottom: 14px; left: 14px; z-index: 1000;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 14px; border-radius: 999px;
+            text-decoration: none; font-weight: 600; letter-spacing: 0.2px;
+            color: #ffffff; border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.08);
+            transition: transform 180ms ease, box-shadow 220ms ease, background 220ms ease, color 220ms ease;
+        }
+        #home-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(0,0,0,0.4); }
+        [data-theme="light"] #home-btn { color: #0b0f14; background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.12); box-shadow: 0 10px 24px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(0,0,0,0.06); }
+    </style>
+</head>
+
+<body>
+    <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" style="position: fixed; top: 14px; right: 14px; z-index: 1000; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: #fff; padding: 0; border-radius: 999px; cursor: pointer; backdrop-filter: blur(10px);">🌙</button>
+    <a id="home-btn" href="/" title="Back to Home">← Home</a>
+    <div class="particles" id="particles"></div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section>
+                <h1 class="title">Introduction to PHP</h1>
+                <p style="text-align: center; opacity: 0;" class="subtitle">A powerful server-side scripting language
+                </p>
+                <div class="floating-icon" style="top: 30%; right: 20%;">🚀</div>
+                <div class="floating-icon" style="bottom: 30%; left: 20%;">💻</div>
+            </section>
+            
+
+
+
+            
+
+
+            <!-- Comments -->
+            <section>
+                <h2>PHP Comments</h2>
+                <div class="card">
+                    <div class="step-number">01</div>
+                    <h3 style="display: inline-block;">Comments in PHP</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Comments help document your code and are ignored by PHP:</p>
+                            <ul>
+                                <li><strong>Single-line comments:</strong>
+                                    <ul>
+                                        <li>Use <code>//</code> for single-line comments (most common)</li>
+                                        <li>Use <code>#</code> as an alternative (less common)</li>
+                                        <li>Everything after the comment marker is ignored</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Multi-line comments:</strong>
+                                    <ul>
+                                        <li>Use <code>/* */</code> to comment multiple lines</li>
+                                        <li>Can span across multiple lines</li>
+                                        <li>Useful for longer explanations or temporarily disabling code</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Best practices:</strong>
+                                    <ul>
+                                        <li>Write clear, descriptive comments</li>
+                                        <li>Explain why, not what (code should be self-explanatory)</li>
+                                        <li>Keep comments up-to-date with code changes</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">💬</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// This is a single-line comment using //</span></div>
+                                <div class="code-line">$name = <span class="string">"John"</span>; <span class="comment">// Comment after code</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment"># This is also a single-line comment using #</span></div>
+                                <div class="code-line">$age = <span class="function">25</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">/*</span></div>
+                                <div class="code-line"><span class="comment"> * This is a multi-line comment</span></div>
+                                <div class="code-line"><span class="comment"> * It can span multiple lines</span></div>
+                                <div class="code-line"><span class="comment"> * Useful for longer explanations</span></div>
+                                <div class="code-line"><span class="comment"> */</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="function">echo</span> <span class="string">"Hello, "</span> . $name;</div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Variables -->
+            <section>
+                <h2>Variables in PHP</h2>
+                <div class="card">
+                    <div class="step-number">02</div>
+                    <h3 style="display: inline-block;">Variables</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Variables in PHP:</p>
+                            <ul>
+                                <li>Start with a dollar sign ($)</li>
+                                <li>Case-sensitive ($name ≠ $NAME)</li>
+                                <li>No need to declare data type (loosely typed)</li>
+                                <li>Automatically converted between types as needed</li>
+                                <li>No explicit declaration needed before use</li>
+                                <li>Value can change during script execution</li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔄</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Variable declaration and assignment</span></div>
+                                <div class="code-line">$name = <span class="string">"John"</span>;</div>
+                                <div class="code-line">$age = <span class="function">25</span>;</div>
+                                <div class="code-line">$height = <span class="function">1.85</span>;</div>
+                                <div class="code-line">$isStudent = <span class="keyword">true</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Using variables</span></div>
+                                <div class="code-line"><span class="function">echo</span> <span class="string">"Name: "</span> . $name . <span class="string">"&lt;br&gt;"</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> <span class="string">"Age: "</span> . $age . <span class="string">"&lt;br&gt;"</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Changing variable values</span></div>
+                                <div class="code-line">$age = <span class="function">26</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> <span class="string">"New age: "</span> . $age . <span class="string">"&lt;br&gt;"</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Variable of different type</span></div>
+                                <div class="code-line">$age = <span class="string">"twenty-six"</span>; <span class="comment">// Now a string</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+
+            <!-- Variable Types -->
+            <section>
+                <h2>Variables in PHP</h2>
+                <div class="card">
+                    <div class="step-number">03</div>
+                    <h3 style="display: inline-block;">PHP Data Types</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>PHP supports the following data types:</p>
+                            <ul>
+                                <li><strong>Scalar Types:</strong>
+                                    <ul>
+                                        <li>String - Text and characters</li>
+                                        <li>Integer - Whole numbers</li>
+                                        <li>Float - Decimal numbers</li>
+                                        <li>Boolean - true/false values</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Compound Types:</strong>
+                                    <ul>
+                                        <li>Array - Ordered map</li>
+                                        <li>Object - Instance of a class</li>
+                                    </ul>
+                                </li>
+                         
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// String</span></div>
+                                <div class="code-line">$name = <span class="string">"John Doe"</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Integer</span></div>
+                                <div class="code-line">$age = <span class="function">25</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Float</span></div>
+                                <div class="code-line">$height = <span class="function">1.85</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Boolean</span></div>
+                                <div class="code-line">$isStudent = <span class="keyword">true</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Array</span></div>
+
+                                <div class="code-line">$colors = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>];</div>
+                                <div class="code-line"></div>
+                        
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- String Concatenation -->
+            <section>
+                <h2>String Operations</h2>
+                <div class="card">
+                    <div class="step-number">03</div>
+                    <h3 style="display: inline-block;">String Concatenation</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>String concatenation combines multiple strings into one:</p>
+                            <ul>
+                                <li><strong>Concatenation operator:</strong>
+                                    <ul>
+                                        <li>Use the dot (.) operator to join strings</li>
+                                        <li>Can concatenate strings, variables, and expressions</li>
+                                    </ul>
+                                </li>
+                                <li><strong>String interpolation:</strong>
+                                    <ul>
+                                        <li>Use double quotes for variable interpolation</li>
+                                        <li>Variables are automatically converted to strings</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Best practices:</strong>
+                                    <ul>
+                                        <li>Use concatenation for complex expressions</li>
+                                        <li>Use interpolation for simple variable insertion</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔗</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic concatenation with dot operator</span></div>
+                                <div class="code-line">$firstName = <span class="string">"John"</span>;</div>
+                                <div class="code-line">$lastName = <span class="string">"Doe"</span>;</div>
+                                <div class="code-line">$fullName = $firstName . <span class="string">" "</span> . $lastName;</div>
+                                <div class="code-line"><span class="function">echo</span> $fullName; <span class="comment">// John Doe</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// String interpolation with double quotes</span></div>
+                                <div class="code-line">$age = <span class="function">25</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> <span class="string">"Hello, my name is $fullName and I am $age years old."</span>;</div>
+                                <div class="code-line"><span class="comment">// Hello, my name is John Doe and I am 25 years old.</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Complex concatenation</span></div>
+                                <div class="code-line">$greeting = <span class="string">"Welcome, "</span> . $firstName . <span class="string">"! You are "</span> . $age . <span class="string">" years old."</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> $greeting;</div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Naming Convention -->
+            <section>
+                <h2>Naming Convention</h2>
+                <div class="card">
+                    <div class="step-number">03</div>
+                    <h3 style="display: inline-block;">PHP Naming Conventions</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Rules for naming variables, functions, and classes:</p>
+                            <ul>
+                                <li><strong>Variables:</strong>
+                                    <ul>
+                                        <li>Must start with $ followed by a letter or underscore</li>
+                                        <li>Can contain letters, numbers, and underscores</li>
+                                        <li>Cannot contain spaces or special characters</li>
+                                        <li>Typically use camelCase: $firstName</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Functions:</strong>
+                                    <ul>
+                                        <li>Should be descriptive and use camelCase</li>
+                                        <li>Example: calculateTotal(), getUserData()</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Classes:</strong>
+                                    <ul>
+                                        <li>Use PascalCase (first letter capitalized)</li>
+                                        <li>Example: UserProfile, DatabaseConnection</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">📝</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                   
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Variable naming examples</span></div>
+                                <div class="code-line">$firstName = <span class="string">"John"</span>; <span class="comment">// camelCase (recommended)</span></div>
+                                <div class="code-line">$last_name = <span class="string">"Doe"</span>; <span class="comment">// snake_case</span></div>
+                                <div class="code-line">$_userId = <span class="function">42</span>; <span class="comment">// valid (starts with underscore)</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Invalid variable names</span></div>
+                                <div class="code-line"><span class="comment">// $1name = "Invalid"; // Cannot start with a number</span></div>
+                                <div class="code-line"><span class="comment">// $user-name = "Invalid"; // Cannot contain hyphens</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Function naming</span></div>
+                                <div class="code-line"><span class="keyword">function</span> <span class="function">calculateTotal</span>($price, $quantity) {</div>
+                                <div class="code-line">    <span class="keyword">return</span> $price * $quantity;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Class naming</span></div>
+                                <div class="code-line"><span class="keyword">class</span> <span class="function">UserProfile</span> {</div>
+                                <div class="code-line">    <span class="comment">// Class properties and methods</span></div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minimalist Indexed Array Access Animation -->
+            <section>
+                <h2>Arrays</h2>
+                <div class="card">
+                    <div class="step-number">04</div>
+                    <h3 style="display: inline-block;">Indexed Arrays</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Indexed arrays use numeric keys (starting from 0):</p>
+                            <ul style="margin-bottom: 8px;">
+                                <li><strong>Accessing elements:</strong>
+                                    <ul>
+                                        <li>Use square brackets with index: $array[index]</li>
+                                        <li>Indices start at 0</li>
+                                        <li>Returns the value at that position</li>
+                                    </ul>
+                                </li>
+                            </ul>
+            
+                            <!-- Minimalist Array Access Animation -->
+                            <div class="array-access-visualization">
+                                <h4>Interactive Array Access</h4>
+            
+                                <!-- Array Declaration Display -->
+                                <div class="array-declaration" id="colors-array-declaration">
+                                    <div class="code-line">$colors = [<span class="string">"Red", "Green", "Blue", "Yellow", "Purple"</span>];</div>
+                                </div>
+            
+                                <!-- Minimalist Array Access Input -->
+                                <div class="array-access-input">
+                                    <div class="code-input-wrapper">
+                                        <span class="code-variable">$colors</span>
+                                        <span class="code-bracket">[</span>
+                                        <input type="text" id="array-index-input" placeholder="index" class="index-input" autofocus>
+                                        <span class="code-bracket">]</span>
+                                    </div>
+                                </div>
+            
+                                <!-- Result Display -->
+                                <div class="array-result" id="array-result">
+                                    <div class="result-value" id="result-value">// Type an index and press Enter</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Creating an indexed array</span></div>
+                                <div class="code-line">$colors = [</div>
+                                <div class="code-line">    <span class="string">"Red"</span>, <span class="comment">// index 0</span></div>
+                                <div class="code-line">    <span class="string">"Green"</span>, <span class="comment">// index 1</span></div>
+                                <div class="code-line">    <span class="string">"Blue"</span>, <span class="comment">// index 2</span></div>
+                                <div class="code-line">    <span class="string">"Yellow"</span>, <span class="comment">// index 3</span></div>
+                                <div class="code-line">    <span class="string">"Purple"</span> <span class="comment">// index 4</span></div>
+                                <div class="code-line">];</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Accessing array elements by index</span></div>
+                                <div class="code-line">$firstColor = $colors[<span class="function">0</span>]; <span class="comment">// "Red"</span></div>
+                                <div class="code-line">$thirdColor = $colors[<span class="function">2</span>]; <span class="comment">// "Blue"</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Using a variable as the index</span></div>
+                                <div class="code-line">$index = <span class="function">3</span>;</div>
+                                <div class="code-line">$selectedColor = $colors[$index]; <span class="comment">// "Yellow"</span>
+                                </div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alternative Array Declaration with array() -->
+            <section>
+                <h2>Arrays</h2>
+                <div class="card">
+                    <div class="step-number">04a</div>
+                    <h3 style="display: inline-block;">Alternative Array Declaration</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>You can also declare indexed arrays using the <code>array()</code> function:</p>
+                            <ul style="margin-bottom: 8px;">
+                                <li><strong>Using array() function:</strong>
+                                    <ul>
+                                        <li>Alternative syntax to square brackets []</li>
+                                        <li>Equivalent functionality - both create indexed arrays</li>
+                                        <li>Older style, but still widely used</li>
+                                        <li>Values are passed as function arguments</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Using array() function (alternative syntax)</span></div>
+                                <div class="code-line">$colors = <span class="function">array</span>(</div>
+                                <div class="code-line">    <span class="string">"Red"</span>, <span class="comment">// index 0</span></div>
+                                <div class="code-line">    <span class="string">"Green"</span>, <span class="comment">// index 1</span></div>
+                                <div class="code-line">    <span class="string">"Blue"</span>, <span class="comment">// index 2</span></div>
+                                <div class="code-line">    <span class="string">"Yellow"</span>, <span class="comment">// index 3</span></div>
+                                <div class="code-line">    <span class="string">"Purple"</span> <span class="comment">// index 4</span></div>
+                                <div class="code-line">);</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Both syntaxes are equivalent</span></div>
+                                <div class="code-line">$colors1 = [<span class="string">"Red"</span>, <span class="string">"Green"</span>, <span class="string">"Blue"</span>];</div>
+                                <div class="code-line">$colors2 = <span class="function">array</span>(<span class="string">"Red"</span>, <span class="string">"Green"</span>, <span class="string">"Blue"</span>);</div>
+                                <div class="code-line"><span class="comment">// $colors1 and $colors2 are identical</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Accessing works the same way</span></div>
+                                <div class="code-line">$firstColor = $colors[<span class="function">0</span>]; <span class="comment">// "Red"</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Minimalist Associative Array Access Animation -->
+            <section>
+                <h2>Arrays</h2>
+                <div class="card" style="padding-top: 18px; padding-bottom: 18px;">
+                    <div class="step-number">05</div>
+                    <h3 style="display: inline-block;">Associative Arrays</h3>
+                    <div class="two-columns" style="align-items: flex-start;">
+                        <div class="column" style="flex: 1 1 0; min-width: 0;">
+                            <p style="margin-bottom: 10px;">Associative arrays use named keys instead of numeric indices:</p>
+                            <ul style="margin-bottom: 12px;">
+                                <li><strong>Accessing elements:</strong>
+                                    <ul>
+                                        <li>Use square brackets with key: $array['key']</li>
+                                        <li>Keys are case-sensitive</li>
+                                        <li>Returns the value associated with that key</li>
+                                    </ul>
+                                </li>
+                            </ul>
+            
+                            <!-- Minimalist Associative Array Access Animation -->
+                            <div class="array-access-visualization" style="padding: 12px 12px 10px 12px;">
+                                <h4 style="margin-bottom: 10px;">Interactive Associative Array Access</h4>
+            
+                                <!-- Array Declaration Display -->
+                                <div class="array-declaration" style="padding: 8px 10px; margin-bottom: 12px;">
+                                    <div class="code-line">$user = [</div>
+                                    <div class="code-line"> <span class="string">"name"</span> => <span class="string">"John Doe"</span>,</div>
+                                    <div class="code-line"> <span class="string">"email"</span> => <span class="string">"john@example.com"</span>,</div>
+                                    <div class="code-line"> <span class="string">"age"</span> => <span class="function">28</span>,</div>
+                                    <div class="code-line"> <span class="string">"active"</span> => <span class="keyword">true</span>,</div>
+                                    <div class="code-line">];</div>
+                                </div>
+            
+                                <!-- Minimalist Array Access Input -->
+                                <div class="array-access-input" style="margin-bottom: 8px;">
+                                    <div class="code-input-wrapper" style="font-size: 0.95em;">
+                                        <span class="code-variable">$user</span>
+                                        <span class="code-bracket">[</span>
+                                        <input type="text" id="assoc-key-input" placeholder="key" class="key-input" style="height: 22px; font-size: 0.95em; padding: 2px 6px; width: 60px;" autofocus>
+                                        <span class="code-bracket">]</span>
+                                    </div>
+                                </div>
+            
+                                <!-- Result Display -->
+                                <div class="array-result" id="assoc-array-result" style="min-height: 22px;">
+                                    <div class="result-value" id="assoc-result-value" style="font-size: 0.95em;">// Type a key and press Enter</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column" style="flex: 1 1 0; min-width: 0;">
+                            <div class="code-block" >
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Creating an associative array</span></div>
+                                <div class="code-line">$user = [</div>
+                                <div class="code-line"> <span class="string">"name"</span> => <span class="string">"John Doe"</span>,</div>
+                                <div class="code-line"> <span class="string">"email"</span> => <span class="string">"john@example.com"</span>,</div>
+                                <div class="code-line"> <span class="string">"age"</span> => <span class="function">28</span>,</div>
+                                <div class="code-line"> <span class="string">"active"</span> => <span class="keyword">true</span>,</div>
+                                <div class="code-line">];</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Accessing array elements by key</span></div>
+                                <div class="code-line">$name = $user[<span class="string">"name"</span>]; <span class="comment">// "John Doe"</span></div>
+                                <div class="code-line">$isActive = $user[<span class="string">"active"</span>]; <span class="comment">// true</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Using a variable as the key</span></div>
+                                <div class="code-line">$key = <span class="string">"email"</span>;</div>
+                                <div class="code-line">$userEmail = $user[$key]; <span class="comment">// "john@example.com"</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <style>
+                /* Minimalist Array Access Animation Styles */
+                .array-access-visualization {
+                    margin-top: 8px;
+                    background: rgba(30, 30, 50, 0.6);
+                    border-radius: 12px;
+                    padding: 20px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+            
+                .array-access-visualization h4 {
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                    font-size: 0.9rem;
+                    color: white;
+                    text-align: center;
+                    font-weight: 600;
+                }
+            
+                /* Array Declaration Display */
+                .array-declaration {
+                    background: rgba(20, 20, 40, 0.8);
+                    border-radius: 10px;
+                    padding: 15px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    overflow-x: auto;
+                    position: relative;
+                }
+            
+                .array-declaration::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 5px;
+                    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+                }
+            
+                .array-declaration .code-line {
+                    margin: 5px 0;
+                    color: white;
+                    font-size: 0.7rem;
+                    font-family: monospace;
+                }
+            
+                .array-declaration .string {
+                    color: var(--gradient-2);
+                }
+            
+                .array-declaration .function {
+                    color: var(--gradient-3);
+                }
+            
+                .array-declaration .keyword {
+                    color: var(--gradient-1);
+                }
+            
+                /* Minimalist Array Access Input */
+                .array-access-input {
+                    margin: 20px 0;
+                    display: flex;
+                    justify-content: center;
+                }
+            
+                .code-input-wrapper {
+                    background: rgba(20, 20, 40, 0.8);
+                    border-radius: 8px;
+                    padding: 12px 20px;
+                    display: flex;
+                    align-items: center;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    transition: all 0.3s ease;
+                }
+            
+                .code-input-wrapper:focus-within {
+                    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+                    border-color: rgba(255, 107, 107, 0.5);
+                }
+            
+                .code-variable {
+                    color: var(--gradient-3);
+                    font-family: monospace;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                }
+            
+                .code-bracket {
+                    color: white;
+                    font-family: monospace;
+                    font-size: 0.9rem;
+                    margin: 0 2px;
+                }
+            
+                .index-input {
+                    background: rgba(60, 60, 90, 0.6);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    color: var(--gradient-1);
+                    padding: 8px 12px;
+                    border-radius: 6px;
+                    font-family: monospace;
+                    font-size: 1rem;
+                    width: 80px;
+                    text-align: center;
+                    margin: 0 2px;
+                    transition: all 0.3s ease;
+                }
+            
+                .index-input:focus {
+                    outline: none;
+                    border-color: var(--gradient-1);
+                    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+                    background: rgba(80, 80, 120, 0.6);
+                }
+            
+                .key-input {
+                    background: rgba(60, 60, 90, 0.6);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    color: var(--gradient-2);
+                    padding: 8px 12px;
+                    border-radius: 6px;
+                    font-family: monospace;
+                    font-size: 1rem;
+                    width: 120px;
+                    text-align: center;
+                    margin: 0 2px;
+                    transition: all 0.3s ease;
+                }
+            
+                .key-input:focus {
+                    outline: none;
+                    border-color: var(--gradient-2);
+                    box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+                    background: rgba(80, 80, 120, 0.6);
+                }
+            
+                /* Minimalist Result Display */
+                .array-result {
+                    background: rgba(20, 20, 40, 0.8);
+                    border-radius: 8px;
+                    padding: 15px 20px;
+                    margin-top: 20px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+            
+                .result-value {
+                    color: var(--gradient-2);
+                    font-family: monospace;
+                    font-size: 0.6rem;
+                    min-height: 1.5rem;
+                }
+            
+                .error-result {
+                    color: var(--gradient-1);
+                }
+            
+                /* Highlight animations */
+                .highlight-index {
+                    background-color: rgba(255, 107, 107, 0.3);
+                    border-radius: 4px;
+                    padding: 2px 4px;
+                    animation: pulse-text 1.5s infinite;
+                }
+            
+         .highlight-key {
+                        background-color: rgba(78, 205, 196, 0.3);
+                        border-radius: 4px;
+                        padding: 2px 4px;
+                        animation: pulse-key 1.5s infinite;
+                    }
+            
+                    .highlight-value {
+                        background-color: rgba(78, 205, 196, 0.15);
+                        border-radius: 4px;
+                        padding: 2px 4px;
+                        animation: pulse-value 1.5s infinite;
+                    }
+            
+                    @keyframes pulse-text {
+                        0% {
+                            background-color: rgba(255, 107, 107, 0.1);
+                        }
+            
+                        50% {
+                            background-color: rgba(255, 107, 107, 0.3);
+                        }
+            
+                        100% {
+                            background-color: rgba(255, 107, 107, 0.1);
+                        }
+                    }
+            
+                    @keyframes pulse-key {
+                        0% {
+                            background-color: rgba(78, 205, 196, 0.1);
+                        }
+            
+                        50% {
+                            background-color: rgba(78, 205, 196, 0.3);
+                        }
+            
+                        100% {
+                            background-color: rgba(78, 205, 196, 0.1);
+                        }
+                    }
+            
+                    @keyframes pulse-value {
+                        0% {
+                            background-color: rgba(78, 205, 196, 0.05);
+                        }
+            
+                        50% {
+                            background-color: rgba(78, 205, 196, 0.15);
+                        }
+            
+                        100% {
+                            background-color: rgba(78, 205, 196, 0.05);
+                        }
+                    }
+            </style>
+            
+            <script>
+                // Add this to your existing script section
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Setup for minimalist indexed array access animation
+                    function setupMinimalistArrayAccess() {
+                        const indexInput = document.getElementById('array-index-input');
+                        const resultValue = document.getElementById('result-value');
+                        const arrayDeclaration = document.querySelectorAll('#colors-array-declaration .code-line');
+                        
+                        // Array data
+                        const colorsArray = ["Red", "Green", "Blue", "Yellow", "Purple"];
+                        
+                        // Function to process the index input
+                        function processIndexInput() {
+                            // Get the input value
+                            const index = indexInput.value.trim();
+                            
+                            // Reset any previous highlights in the array declaration
+                            document.querySelectorAll('.highlight-index').forEach(el => {
+                                const originalText = el.textContent;
+                                el.outerHTML = originalText;
+                            });
+                            
+                            // Validate input
+                            if (index === '') {
+                                resultValue.textContent = '// Type an index and press Enter';
+                                resultValue.className = 'result-value';
+                                return;
+                            }
+                            
+                            // Try to parse as number if it's a numeric index
+                            const numericIndex = parseInt(index);
+                            
+                            // Check if it's a valid index
+                            if (isNaN(numericIndex)) {
+                                // Handle non-numeric input
+                                resultValue.textContent = `// Error: "${index}" is not a valid index`;
+                                resultValue.className = 'result-value error-result';
+                                
+                                // Shake the input to indicate error
+                                anime({
+                                    targets: indexInput,
+                                    translateX: [0, -10, 10, -10, 10, 0],
+                                    duration: 500,
+                                    easing: 'easeInOutSine'
+                                });
+                                return;
+                            }
+                            
+                            // Check if index is in range
+                            if (numericIndex < 0 || numericIndex >= colorsArray.length) {
+                                resultValue.textContent = `// Warning: Index ${numericIndex} is out of bounds`;
+                                resultValue.className = 'result-value error-result';
+                                
+                                // Flash the input red to indicate error
+                                anime({
+                                    targets: indexInput,
+                                    backgroundColor: [
+                                        'rgba(60, 60, 90, 0.6)',
+                                        'rgba(255, 107, 107, 0.6)',
+                                        'rgba(60, 60, 90, 0.6)'
+                                    ],
+                                    duration: 1000,
+                                    easing: 'easeInOutQuad'
+                                });
+                                return;
+                            }
+                            
+                            // Valid index - highlight the element in the array declaration
+                            const arrayDeclarationLine = document.querySelector('.array-declaration .code-line');
+                            const stringElements = arrayDeclarationLine.querySelectorAll('.string');
+                            
+                            if (stringElements && stringElements.length > numericIndex) {
+                                // Wrap the target element with highlight span
+                                const targetElement = stringElements[numericIndex];
+                                const originalHTML = targetElement.outerHTML;
+                                targetElement.outerHTML = `<span class="highlight-index">${originalHTML}</span>`;
+                            }
+                            
+                            // Show the result with a simple fade-in animation
+                            resultValue.style.opacity = "0";
+                            setTimeout(() => {
+                                resultValue.textContent = `"${colorsArray[numericIndex]}"`;
+                                resultValue.className = 'result-value';
+                                
+                                // Simple fade in that stays visible
+                                anime({
+                                    targets: resultValue,
+                                    opacity: 1,
+                                    duration: 300,
+                                    easing: 'easeOutQuad'
+                                });
+                            }, 100);
+                        }
+                        
+                        // Process input when Enter is pressed
+                        indexInput.addEventListener('keypress', function(e) {
+                            if (e.key === 'Enter') {
+                                processIndexInput();
+                            }
+                        });
+                        
+                        // Also process when input loses focus
+                        indexInput.addEventListener('blur', processIndexInput);
+                        
+                        // Focus on the input field when the slide is shown
+                        indexInput.focus();
+                    }
+                    
+                    // Setup for minimalist associative array access animation
+                    function setupMinimalistAssocArrayAccess() {
+                        const keyInput = document.getElementById('assoc-key-input');
+                        const resultValue = document.getElementById('assoc-result-value');
+                        
+                        // Array data
+                        const userArray = {
+                            "name": "John Doe",
+                            "email": "john@example.com",
+                            "age": 28,
+                            "active": true,
+                            "role": "admin"
+                        };
+                        
+                        // Function to process the key input
+                        function processKeyInput() {
+                            // Get the input value
+                            let key = keyInput.value.trim();
+                            
+                            // Reset any previous highlights
+                            document.querySelectorAll('.highlight-key, .highlight-value').forEach(el => {
+                                const originalText = el.textContent;
+                                el.outerHTML = originalText;
+                            });
+                            
+                            // Validate input
+                            if (key === '') {
+                                resultValue.textContent = '// Type a key and press Enter';
+                                resultValue.className = 'result-value';
+                                return;
+                            }
+                            
+                            // Remove quotes if they were added
+                            if ((key.startsWith('"') && key.endsWith('"')) || 
+                                (key.startsWith("'") && key.endsWith("'"))) {
+                                key = key.substring(1, key.length - 1);
+                            }
+                            
+                            // Check if key exists
+                            if (!(key in userArray)) {
+                                resultValue.textContent = `// Key "${key}" does not exist in the array`;
+                                resultValue.className = 'result-value error-result';
+                                
+                                // Shake the input to indicate error
+                                anime({
+                                    targets: keyInput,
+                                    translateX: [0, -10, 10, -10, 10, 0],
+                                    duration: 500,
+                                    easing: 'easeInOutSine'
+                                });
+                                return;
+                            }
+                            
+                            // Valid key - highlight the key-value pair in the array declaration
+                            const arrayDeclarationLines = document.querySelectorAll('.array-declaration .code-line');
+                            
+                            // Find the line with our key
+                            arrayDeclarationLines.forEach(line => {
+                                const lineText = line.textContent;
+                                if (lineText.includes(`"${key}"`)) {
+                                    // Find the key and value elements
+                                    const keyElement = line.querySelector('.string');
+                                    const valueElements = line.querySelectorAll('.string, .function, .keyword');
+                                    
+                                    if (keyElement && valueElements.length > 1) {
+                                        // Highlight the key
+                                        const originalKeyHTML = keyElement.outerHTML;
+                                        keyElement.outerHTML = `<span class="highlight-key">${originalKeyHTML}</span>`;
+                                        
+                                        // Highlight the value (second element)
+                                        const valueElement = valueElements[1];
+                                        const originalValueHTML = valueElement.outerHTML;
+                                        valueElement.outerHTML = `<span class="highlight-value">${originalValueHTML}</span>`;
+                                    }
+                                }
+                            });
+                            
+                            // Show the result with a simple fade-in animation
+                            resultValue.style.opacity = "0";
+                            setTimeout(() => {
+                                // Format the result based on type
+                                let formattedResult;
+                                if (typeof userArray[key] === 'string') {
+                                    formattedResult = `"${userArray[key]}"`;
+                                } else {
+                                    formattedResult = userArray[key];
+                                }
+                                
+                                resultValue.textContent = formattedResult;
+                                resultValue.className = 'result-value';
+                                
+                                // Simple fade in that stays visible
+                                anime({
+                                    targets: resultValue,
+                                    opacity: 1,
+                                    duration: 300,
+                                    easing: 'easeOutQuad'
+                                });
+                            }, 100);
+                        }
+                        
+                        // Process input when Enter is pressed
+                        keyInput.addEventListener('keypress', function(e) {
+                            if (e.key === 'Enter') {
+                                processKeyInput();
+                            }
+                        });
+                        
+                        // Also process when input loses focus
+                        keyInput.addEventListener('blur', processKeyInput);
+                        
+                        // Focus on the input field when the slide is shown
+                        keyInput.focus();
+                    }
+                    
+                    // Initialize array animations when the slide is shown
+                    Reveal.on('slidechanged', function(event) {
+                        const currentSlide = event.currentSlide;
+                        
+                        // Check if this slide contains our array demos
+                        if (currentSlide.querySelector('#array-index-input')) {
+                            setupMinimalistArrayAccess();
+                            
+                            // Focus on the input field with a slight delay
+                            setTimeout(() => {
+                                const input = document.getElementById('array-index-input');
+                                if (input) input.focus();
+                            }, 300);
+                        }
+                        
+                        if (currentSlide.querySelector('#assoc-key-input')) {
+                            setupMinimalistAssocArrayAccess();
+                            
+                            // Focus on the input field with a slight delay
+                            setTimeout(() => {
+                                const input = document.getElementById('assoc-key-input');
+                                if (input) input.focus();
+                            }, 300);
+                        }
+                    });
+                    
+                    // Also initialize for the starting slide if it contains our demos
+                    if (Reveal.getCurrentSlide().querySelector('#array-index-input')) {
+                        setupMinimalistArrayAccess();
+                    }
+                    
+                    if (Reveal.getCurrentSlide().querySelector('#assoc-key-input')) {
+                        setupMinimalistAssocArrayAccess();
+                    }
+                });
+            </script>
+
+
+
+
+
+            <!-- If-Else Statements -->
+            <section>
+                <h2>If-Else Statements</h2>
+                <div class="card">
+                    <div class="step-number">06</div>
+                    <h3 style="display: inline-block;">Conditional Statements</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Conditional statements execute code based on conditions:</p>
+                            <ul>
+                                <li><strong>Basic if statement:</strong>
+                                    <ul>
+                                        <li>Executes code if condition is true</li>
+                                    </ul>
+                                </li>
+                                <li><strong>if-else statement:</strong>
+                                    <ul>
+                                        <li>Provides alternative code for false condition</li>
+                                    </ul>
+                                </li>
+                                <li><strong>if-elseif-else statement:</strong>
+                                    <ul>
+                                        <li>Tests multiple conditions in sequence</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Nested if statements:</strong>
+                                    <ul>
+                                        <li>Conditions inside other conditions</li>
+                                    </ul>
+                                </li>
+                            
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔀</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic if statement</span></div>
+                                <div class="code-line">$age = <span class="function">18</span>;</div>
+                                <div class="code-line"><span class="keyword">if</span> ($age >= <span class="function">18</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"You are an adult."</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// if-else statement</span></div>
+                                <div class="code-line">$score = <span class="function">75</span>;</div>
+                                <div class="code-line"><span class="keyword">if</span> ($score >= <span class="function">60</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"You passed!"</span>;</div>
+                                <div class="code-line">} <span class="keyword">else</span> {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"You failed."</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// if-elseif-else statement</span></div>
+                                <div class="code-line">$grade = <span class="function">85</span>;</div>
+                                <div class="code-line"><span class="keyword">if</span> ($grade >= <span class="function">90</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"A"</span>;</div>
+                                <div class="code-line">} <span class="keyword">elseif</span> ($grade >= <span class="function">80</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"B"</span>;</div>
+                                <div class="code-line">} <span class="keyword">elseif</span> ($grade >= <span class="function">70</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"C"</span>;</div>
+                                <div class="code-line">} <span class="keyword">else</span> {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"F"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ternary and Null Coalescing -->
+            <!-- <section>
+                <h2>If-Else Statements</h2>
+                <div class="card">
+                    <div class="step-number">07</div>
+                    <h3 style="display: inline-block;">Shorthand Conditionals</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>PHP offers shorthand conditional expressions:</p>
+                            <ul>
+                                <li><strong>Ternary operator:</strong>
+                                    <ul>
+                                        <li>Syntax: condition ? true_result : false_result</li>
+                                        <li>Shorthand for simple if-else statements</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Shorthand ternary:</strong>
+                                    <ul>
+                                        <li>Syntax: expr1 ?: expr2</li>
+                                        <li>Returns expr1 if it evaluates to true, expr2 otherwise</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Null coalescing operator:</strong>
+                                    <ul>
+                                        <li>Syntax: expr1 ?? expr2</li>
+                                        <li>Returns expr1 if it exists and is not NULL, expr2 otherwise</li>
+                                        <li>Added in PHP 7.0</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Null coalescing assignment:</strong>
+                                    <ul>
+                                        <li>Syntax: $x ??= expr</li>
+                                        <li>Assigns value only if variable is null</li>
+                                        <li>Added in PHP 7.4</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Ternary operator</span></div>
+                                <div class="code-line">$age = <span class="function">20</span>;</div>
+                                <div class="code-line">$status = ($age >= <span class="function">18</span>) ? <span class="string">"adult"</span> : <span class="string">"minor"</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> $status; <span class="comment">// Outputs: adult</span></div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Shorthand ternary (Elvis operator)</span></div>
+                                <div class="code-line">$username = <span class="string">"john_doe"</span>;</div>
+                                <div class="code-line">$display = $username ?: <span class="string">"Guest"</span>;</div>
+                                <div class="code-line"><span class="function">echo</span> $display; <span class="comment">// Outputs: john_doe</span></div>
+           
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <!-- Switch Statement -->
+            <section>
+                <h2>If-Else Statements</h2>
+                <div class="card">
+                    <div class="step-number">07</div>
+                    <h3 style="display: inline-block;">Switch Statement</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>The switch statement is an alternative to multiple if-elseif statements:</p>
+                            <ul>
+                                <li><strong>Basic structure:</strong>
+                                    <ul>
+                                        <li>switch expression to evaluate</li>
+                                        <li>case statements for different values</li>
+                                        <li>default case for no matches</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Important notes:</strong>
+                                    <ul>
+                                        <li>Uses loose comparison (==) by default</li>
+                                        <li>break statement prevents fall-through</li>
+                                        <li>Multiple cases can share the same code block</li>
+                                        <li>default is optional but recommended</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Best used when:</strong>
+                                    <ul>
+                                        <li>Comparing a variable against many values</li>
+                                        <li>Code readability is important</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔄</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic switch statement</span></div>
+                                <div class="code-line">$day = <span class="string">"Wednesday"</span>;</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="keyword">switch</span> ($day) {</div>
+                                <div class="code-line">    <span class="keyword">case</span> <span class="string">"Monday"</span>:</div>
+                                <div class="code-line">        <span class="function">echo</span> <span class="string">"Start of work week"</span>;</div>
+                                <div class="code-line">        <span class="keyword">break</span>;</div>
+                                <div class="code-line">    </div>
+                                <div class="code-line">    <span class="keyword">case</span> <span class="string">"Wednesday"</span>:</div>
+                                <div class="code-line">        <span class="function">echo</span> <span class="string">"Middle of work week"</span>;</div>
+                                <div class="code-line">        <span class="keyword">break</span>;</div>
+                                <div class="code-line">    </div>
+                                <div class="code-line">    <span class="keyword">case</span> <span class="string">"Friday"</span>:</div>
+                                <div class="code-line">        <span class="function">echo</span> <span class="string">"End of work week"</span>;</div>
+                                <div class="code-line">        <span class="keyword">break</span>;</div>
+                                <div class="code-line">    </div>
+                                <div class="code-line">    <span class="keyword">case</span> <span class="string">"Saturday"</span>:</div>
+                                <div class="code-line">    <span class="keyword">case</span> <span class="string">"Sunday"</span>:</div>
+                                <div class="code-line">        <span class="function">echo</span> <span class="string">"Weekend!"</span>;</div>
+                                <div class="code-line">        <span class="keyword">break</span>;</div>
+                                <div class="code-line">    </div>
+                                <div class="code-line">    <span class="keyword">default</span>:</div>
+                                <div class="code-line">        <span class="function">echo</span> <span class="string">"Regular work day"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"><span class="comment">// Outputs: Middle of work week</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- For Loop -->
+            <section>
+                <h2>Loops</h2>
+                <div class="card">
+                    <div class="step-number">08</div>
+                    <h3 style="display: inline-block;">For Loop</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>The for loop executes code a specified number of times:</p>
+                            <ul>
+                                <li><strong>Basic structure:</strong>
+                                    <ul>
+                                        <li>Initialization: executed once before the loop starts</li>
+                                        <li>Condition: evaluated before each iteration</li>
+                                        <li>Increment/decrement: executed after each iteration</li>
+                                        <li>Code block: executed if condition is true</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Common uses:</strong>
+                                    <ul>
+                                        <li>Iterating a specific number of times</li>
+                                        <li>Processing arrays with numeric indices</li>
+                                        <li>Generating sequences</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Control flow:</strong>
+                                    <ul>
+                                        <li>break: exits the loop completely</li>
+                                        <li>continue: skips the current iteration</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔄</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic for loop</span></div>
+                                <div class="code-line"><span class="keyword">for</span> ($i = <span class="function">1</span>; $i <= <span class="function">5</span>; $i++) {</div>
+                                <div class="code-line">    <span class="function">echo</span> $i . <span class="string">" "</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"><span class="comment">// Outputs: 1 2 3 4 5</span></div>
+                                <div class="code-line"></div>
+                                
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Foreach Loop -->
+            <section>
+                <h2>Loops</h2>
+                <div class="card">
+                    <div class="step-number">09</div>
+                    <h3 style="display: inline-block;">Foreach: Indexed Arrays</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Iterate over sequential lists (indexed arrays):</p>
+                            <ul>
+                                <li><strong>Basic structure:</strong>
+                                    <ul>
+                                        <li>foreach (array as value) - gets only values</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Advantages:</strong>
+                                    <ul>
+                                        <li>No need to know array size or keys in advance</li>
+                                        <li>More readable for array iteration</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">🔄</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic foreach with values only</span></div>
+                                <div class="code-line"><span class="array-var">$fruits</span> = [<span class="string">"Apple"</span>, <span class="string">"Banana"</span>, <span class="string">"Cherry"</span>];</div>
+                                <div class="code-line"><span class="keyword">foreach</span> (<span class="array-var">$fruits</span> <span class="keyword">as</span> <span class="editable-var" contenteditable="true" data-default="fruit">$fruit</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="fruit-ref">$fruit</span> . <span class="string">"&lt;br&gt;"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                
+        
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                            <div class="code-hint">
+                                <span class="hint-icon">💡</span> Click on $fruits to highlight, or edit the variable name directly in the code!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <style>
+                .array-var {
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+                
+                .array-var:hover {
+                    background-color: rgba(124, 255, 196, 0.2);
+                }
+                
+                .array-var.highlight {
+                    background-color: rgba(124, 255, 196, 0.4);
+                    box-shadow: 0 0 0 2px rgba(124, 255, 196, 0.6);
+                    border-radius: 3px;
+                }
+                
+                .editable-var {
+                    background-color: rgba(124, 255, 196, 0.1);
+                    border-radius: 3px;
+                    padding: 0 3px;
+                    cursor: text;
+                    transition: all 0.2s ease;
+                }
+                
+                .editable-var:hover {
+                    background-color: rgba(124, 255, 196, 0.3);
+                }
+                
+                .editable-var.editing {
+                    background-color: rgba(124, 255, 196, 0.4);
+                    box-shadow: 0 0 0 2px rgba(124, 255, 196, 0.6);
+                    outline: none;
+                }
+                
+                [data-theme="light"] .array-var:hover,
+                [data-theme="light"] .editable-var:hover {
+                    background-color: rgba(0, 120, 255, 0.2);
+                }
+                
+                [data-theme="light"] .array-var.highlight,
+                [data-theme="light"] .editable-var.editing {
+                    background-color: rgba(0, 120, 255, 0.3);
+                    box-shadow: 0 0 0 2px rgba(0, 120, 255, 0.4);
+                }
+            </style>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Set up array variable highlighting
+                    const arrayVars = document.querySelectorAll('.array-var');
+                    arrayVars.forEach(el => {
+                        el.addEventListener('click', function() {
+                            // Toggle highlight class on all instances of this array
+                            const arrayName = this.textContent;
+                            document.querySelectorAll('.array-var').forEach(item => {
+                                if (item.textContent === arrayName) {
+                                    item.classList.toggle('highlight');
+                                }
+                            });
+                            
+                            // Remove highlight after 2 seconds
+                            setTimeout(() => {
+                                document.querySelectorAll('.array-var').forEach(item => {
+                                    item.classList.remove('highlight');
+                                });
+                            }, 2000);
+                        });
+                    });
+                    
+                    // Set up editable variable
+                    const editableVar = document.querySelector('.editable-var');
+                    if (editableVar) {
+                        // Store original value
+                        editableVar.dataset.current = editableVar.textContent.replace('$', '');
+                        
+                        // Handle focus
+                        editableVar.addEventListener('focus', function() {
+                            this.classList.add('editing');
+                        });
+                        
+                        // Handle blur
+                        editableVar.addEventListener('blur', function() {
+                            this.classList.remove('editing');
+                            updateVariableReferences();
+                        });
+                        
+                        // Handle keyup
+                        editableVar.addEventListener('keyup', function() {
+                            updateVariableReferences();
+                        });
+                        
+                        // Function to update all references
+                        function updateVariableReferences() {
+                            const newVarName = editableVar.textContent.replace('$', '');
+                            
+                            // Update all references to this variable
+                            document.querySelectorAll('.fruit-ref').forEach(ref => {
+                                ref.textContent = '$' + newVarName;
+                            });
+                            
+                            // Store current value
+                            editableVar.dataset.current = newVarName;
+                        }
+                    }
+                });
+            </script>
+
+                        <!-- Foreach Loop (Associative Arrays) -->
+                        <section>
+                            <h2>Loops</h2>
+                            <div class="card">
+                                <div class="step-number">09</div>
+                                <h3 style="display: inline-block;">Foreach: Associative Arrays</h3>
+                                <div class="two-columns">
+                                    <div class="column">
+                                        <p>Iterate over key/value maps (associative arrays):</p>
+                                        <ul>
+                                            <li><strong>Keys and values:</strong> <code>foreach ($arr as $key =&gt; $value)</code></li>
+                                            <li><strong>Tip:</strong> Order follows insertion, not alphabetical</li>
+                                            <li><strong>Note:</strong> Variable names are customizable</li>
+                                        </ul>
+                                        <div class="floating-icon" style="bottom: 30px; left: 20px;">🗂️</div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="code-block">
+                                            <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                            <div class="code-line">$user = [</div>
+                                            <div class="code-line">    <span class="string">"name"</span> => <span class="string">"John"</span>,</div>
+                                            <div class="code-line">    <span class="string">"email"</span> => <span class="string">"john@example.com"</span>,</div>
+                                            <div class="code-line">    <span class="string">"age"</span> => <span class="function">28</span></div>
+                                            <div class="code-line">];</div>
+                                            <div class="code-line"></div>
+                                            <div class="code-line"><span class="keyword">foreach</span> ($user <span class="keyword">as</span> $<span class="editable-var" contenteditable="true" data-default="key">key</span> => $<span class="editable-var" contenteditable="true" data-default="value">value</span>) {</div>
+                                            <div class="code-line">    <span class="function">echo</span> $<span class="key-ref">key</span> . <span class="string">": "</span> . $<span class="value-ref">value</span> . <span class="string">"&lt;br&gt;"</span>;</div>
+                                            <div class="code-line">}</div>
+                                            <div class="code-line"><span class="keyword">?&gt;</span></div>
+                                        </div>
+                                        <div class="code-hint">
+                                            <span class="hint-icon">💡</span> Try editing the variable names directly in the code!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Set up editable variables
+                                    document.querySelectorAll('.editable-var').forEach(el => {
+                                        // Store original value
+                                        el.dataset.current = el.textContent;
+                                        
+                                        // Handle focus
+                                        el.addEventListener('focus', function() {
+                                            this.classList.add('editing');
+                                        });
+                                        
+                                        // Handle blur
+                                        el.addEventListener('blur', function() {
+                                            this.classList.remove('editing');
+                                            // If empty, reset to default
+                                            if (!this.textContent.trim()) {
+                                                this.textContent = this.dataset.default;
+                                            }
+                                            // Update current value
+                                            this.dataset.current = this.textContent;
+                                            
+                                            // Update references
+                                            updateReferences();
+                                        });
+                                        
+                                        // Handle keydown
+                                        el.addEventListener('keydown', function(e) {
+                                            // Prevent newlines
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                this.blur();
+                                            }
+                                            
+                                            // Limit length
+                                            if (this.textContent.length > 10 && e.key.length === 1) {
+                                                e.preventDefault();
+                                            }
+                                        });
+                                        
+                                        // Handle keyup for real-time updates
+                                        el.addEventListener('keyup', function() {
+                                            // If empty, don't update yet
+                                            if (!this.textContent.trim()) {
+                                                return;
+                                            }
+                                            // Update current value
+                                            this.dataset.current = this.textContent;
+                                            
+                                            // Update references
+                                            updateReferences();
+                                        });
+                                    });
+                                    
+                                    function updateReferences() {
+                                        // Get current values
+                                        const keyVar = document.querySelector('.editable-var[data-default="key"]').dataset.current;
+                                        const valueVar = document.querySelector('.editable-var[data-default="value"]').dataset.current;
+                                        
+                                        // Update references
+                                        document.querySelectorAll('.key-ref').forEach(el => {
+                                            el.textContent = keyVar;
+                                        });
+                                        
+                                        document.querySelectorAll('.value-ref').forEach(el => {
+                                            el.textContent = valueVar;
+                                        });
+                                    }
+                                    
+                                    // Initial update
+                                    updateReferences();
+                                });
+                            </script>
+                            <style>
+                                .editable-var {
+                                    background-color: rgba(124, 255, 196, 0.2);
+                                    border-radius: 4px;
+                                    padding: 2px 4px;
+                                    cursor: text;
+                                    position: relative;
+                                    transition: all 0.2s ease;
+                                    min-width: 20px;
+                                    display: inline-block;
+                                }
+                                
+                                .editable-var:hover {
+                                    background-color: rgba(124, 255, 196, 0.3);
+                                }
+                                
+                                .editable-var.editing {
+                                    background-color: rgba(124, 255, 196, 0.4);
+                                    box-shadow: 0 0 0 2px rgba(124, 255, 196, 0.6);
+                                    outline: none;
+                                }
+                                
+                                .key-ref, .value-ref {
+                                    color: inherit;
+                                    transition: all 0.2s ease;
+                                }
+                                
+                                .code-hint {
+                                    margin-top: 12px;
+                                    font-size: 0.9em;
+                                    color: rgba(255, 255, 255, 0.7);
+                                    background-color: rgba(124, 255, 196, 0.1);
+                                    padding: 8px 12px;
+                                    border-radius: 6px;
+                                    border-left: 3px solid rgba(124, 255, 196, 0.4);
+                                }
+                                
+                                .hint-icon {
+                                    margin-right: 6px;
+                                }
+                                
+                                [data-theme="light"] .editable-var {
+                                    background-color: rgba(0, 120, 255, 0.1);
+                                }
+                                
+                                [data-theme="light"] .editable-var:hover {
+                                    background-color: rgba(0, 120, 255, 0.2);
+                                }
+                                
+                                [data-theme="light"] .editable-var.editing {
+                                    background-color: rgba(0, 120, 255, 0.3);
+                                    box-shadow: 0 0 0 2px rgba(0, 120, 255, 0.4);
+                                }
+                                
+                                [data-theme="light"] .code-hint {
+                                    color: rgba(0, 0, 0, 0.7);
+                                    background-color: rgba(0, 120, 255, 0.05);
+                                    border-left: 3px solid rgba(0, 120, 255, 0.3);
+                                }
+                            </style>
+                        </section>
+
+                              <!-- Foreach: Curriculum Activities -->
+                              <section>
+                                <h2>Loops</h2>
+                                <div class="card">
+                                    <div class="step-number">14</div>
+                                    <h3 style="display: inline-block;">Foreach: Curriculum Activities</h3>
+                                    <div class="two-columns">
+                                        <div class="column">
+                                            <p>Use <code>foreach</code> to iterate over arrays of items:</p>
+                                            <ul>
+                                                <li><strong>Readable iteration:</strong>
+                                                    <ul>
+                                                        <li>Access each element without manual indexing</li>
+                                                        <li>Great for associative arrays and lists of records</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Access keys and values:</strong>
+                                                    <ul>
+                                                        <li><code>foreach ($array as $item)</code> — values only</li>
+                                                        <li><code>foreach ($array as $key =&gt; $item)</code> — keys and values</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="column">
+                                            <div class="code-block" style="overflow-y: auto; max-height: 400px; max-width:480px; overflow-x: auto;">
+                                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                                <div class="code-line"><span class="variable">$curriculumActivities</span> = [</div>
+                                                <div class="code-line">    [</div>
+                                                <div class="code-line">        <span class="string">'name'</span> =&gt; <span class="string">'Student Council'</span>,</div>
+                                                <div class="code-line">        <span class="string">'position'</span> =&gt; <span class="string">'President'</span>,</div>
+                                                <div class="code-line">        <span class="string">'year'</span> =&gt; <span class="string">'2021-2022'</span>,</div>
+                                                <div class="code-line">        <span class="string">'description'</span> =&gt; <span class="string">'Led student body initiatives'</span></div>
+                                                <div class="code-line">    ],</div>
+                                                <div class="code-line">    [</div>
+                                                <div class="code-line">        <span class="string">'name'</span> =&gt; <span class="string">'Debate Club'</span>,</div>
+                                                <div class="code-line">        <span class="string">'position'</span> =&gt; <span class="string">'Team Captain'</span>,</div>
+                                                <div class="code-line">        <span class="string">'year'</span> =&gt; <span class="string">'2020-2022'</span>,</div>
+                                                <div class="code-line">        <span class="string">'description'</span> =&gt; <span class="string">'Participated in national level competitions'</span></div>
+                                                <div class="code-line">    ],</div>
+                                                <div class="code-line">    [</div>
+                                                <div class="code-line">        <span class="string">'name'</span> =&gt; <span class="string">'Volunteer Club'</span>,</div>
+                                                <div class="code-line">        <span class="string">'position'</span> =&gt; <span class="string">'Member'</span>,</div>
+                                                <div class="code-line">        <span class="string">'year'</span> =&gt; <span class="string">'2019-2022'</span>,</div>
+                                                <div class="code-line">        <span class="string">'description'</span> =&gt; <span class="string">'Participated in community service activities'</span></div>
+                                                <div class="code-line">    ],</div>
+                                                <div class="code-line">    [</div>
+                                                <div class="code-line">        <span class="string">'name'</span> =&gt; <span class="string">'Science Olympiad'</span>,</div>
+                                                <div class="code-line">        <span class="string">'position'</span> =&gt; <span class="string">'Participant'</span>,</div>
+                                                <div class="code-line">        <span class="string">'year'</span> =&gt; <span class="string">'2021'</span>,</div>
+                                                <div class="code-line">        <span class="string">'description'</span> =&gt; <span class="string">'Represented school in national science competition'</span></div>
+                                                <div class="code-line">    ]</div>
+                                                <div class="code-line">];</div>
+                                                <div class="code-line"></div>
+                                                <div class="code-line"><span class="keyword">foreach</span> (<span class="variable">$curriculumActivities</span> <span class="keyword">as</span> <span class="variable">$activity</span>) {</div>
+                                                <div class="code-line">    <span class="function">echo</span> <span class="string">"- {$activity['name']} ({$activity['position']}, {$activity['year']})\n"</span>;</div>
+                                                <div class="code-line">    <span class="function">echo</span> <span class="string">"  • {$activity['description']}\n"</span>;</div>
+                                                <div class="code-line">}</div>
+                                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+            
+
+            <!-- Functions -->
+            <section>
+                <h2>Functions</h2>
+                <div class="card">
+                    <div class="step-number">10</div>
+                    <h3 style="display: inline-block;">Function Most Basic Structure</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>Functions are blocks of reusable code:</p>
+                            <ul>
+                                <li><strong>Basic structure:</strong>
+                                    <ul>
+                                        <li>function keyword</li>
+                                        <li>Function name (should be descriptive)</li>
+                                        <li>Parameters (optional)</li>
+                                        <li>Return value (optional)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Benefits:</strong>
+                                    <ul>
+                                        <li>Code reusability</li>
+                                        <li>Better organization</li>
+                                        <li>Easier maintenance</li>
+                                        <li>Improved readability</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Function scope:</strong>
+                                    <ul>
+                                        <li>Variables inside functions are local by default</li>
+                                        <li>Use global keyword to access global variables</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="floating-icon" style="bottom: 30px; left: 20px;">📦</div>
+                        </div>
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Basic function definition</span></div>
+                                <div class="code-line"><span class="keyword">function</span> <span class="function">sayHello</span>() {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"Hello, World!"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="comment">// Calling the function</span></div>
+                                <div class="code-line"><span class="function">sayHello</span>(); <span class="comment">// Outputs: Hello, World!</span></div>
+                                <div class="code-line"></div>
+                              <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Function Parameters -->
+            <section>
+                <h2>Functions</h2>
+                <div class="card">
+                    <div class="step-number">11</div>
+                    <h3 style="display: inline-block;">Function With Parameter</h3>
+                    <div class="two-columns">
+                        <div class="column">
+                            <p>PHP offers flexible parameter handling in functions:</p>
+                            <ul>
+                                <li><strong>Default parameter values:</strong>
+                                    <ul>
+                                        <li>Assign default values to parameters</li>
+                                        <li>Makes parameters optional</li>
+                                    </ul>
+                                </li>
+                     
+                            
+                              
+                            </ul>
+                        </div>
+                      
+                        <div class="column">
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Function with parameters</span></div>
+                                <div class="code-line"><span class="keyword">function</span> <span class="function">greet</span>($name) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"Hello, "</span> . $name . <span class="string">"!"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="function">greet</span>(<span class="string">"John"</span>); <span class="comment">// Hello, John!</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                            <div class="code-block">
+                                <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                <div class="code-line"><span class="comment">// Function with default parameters</span></div>
+                                <div class="code-line"><span class="keyword">function</span> <span class="function">setHeight</span>($height = <span class="function">50</span>) {</div>
+                                <div class="code-line">    <span class="function">echo</span> <span class="string">"Height is: "</span> . $height . <span class="string">"&lt;br&gt;"</span>;</div>
+                                <div class="code-line">}</div>
+                                <div class="code-line"></div>
+                                <div class="code-line"><span class="function">setHeight</span>(<span class="function">80</span>); <span class="comment">// Height is: 80</span></div>
+                                <div class="code-line"><span class="function">setHeight</span>(); <span class="comment">// Height is: 50 (default)</span></div>
+                                <div class="code-line"><span class="keyword">?&gt;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                        <!-- Multiple Parameters -->
+                        <section>
+                            <h2>Functions</h2>
+                            <div class="card">
+                                <div class="step-number">12</div>
+                                <h3 style="display: inline-block;">Multiple Parameters</h3>
+                                <div class="two-columns">
+                                    <div class="column">
+                                        <p>Functions can accept multiple and variable numbers of parameters:</p>
+                                        <ul>
+                                            <li><strong>Multiple fixed parameters:</strong>
+                                                <ul>
+                                                    <li>Define each parameter in order</li>
+                                                    <li>Callers must pass arguments in the same order</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Defaults with many params:</strong>
+                                                <ul>
+                                                    <li>Later parameters can provide default values</li>
+                                                    <li>Defaults make arguments optional</li>
+                                                </ul>
+                                            </li>
+                                      
+                                        </ul>
+                                    </div>
+                                    <div class="column">
+                                        <div class="code-block">
+                                            <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                            <div class="code-line"><span class="comment">// Multiple fixed parameters</span></div>
+                                            <div class="code-line"><span class="keyword">function</span> <span class="function">greet</span>($salutation, $name) {</div>
+                                            <div class="code-line">    <span class="keyword">return</span> $salutation . <span class="string">", "</span> . $name . <span class="string">"!"</span>;</div>
+                                            <div class="code-line">}</div>
+                                            <div class="code-line"><span class="function">echo</span> <span class="function">greet</span>(<span class="string">"Hello"</span>, <span class="string">"John"</span>); <span class="comment">// Hello, John!</span></div>
+                                            <div class="code-line"></div>
+                                           <div class="code-line"><span class="keyword">?&gt;</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+            
+                        <!-- Return Values -->
+                        <section>
+                            <h2>Functions</h2>
+                            <div class="card">
+                                <div class="step-number">13</div>
+                                <h3 style="display: inline-block;">Return Values</h3>
+                                <div class="two-columns">
+                                    <div class="column">
+                                        <p>Functions can compute and return results to the caller:</p>
+                                        <ul>
+                                            <li><strong>Using return:</strong>
+                                                <ul>
+                                                    <li><code>return</code> sends a value back to the caller</li>
+                                                    <li>Execution stops at the first return</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Return types:</strong>
+                                                <ul>
+                                                    <li>Return strings, numbers, arrays, objects, or <code>null</code></li>
+                                                    <li>Return early to handle invalid input</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="column">
+                                        <div class="code-block">
+                                            <div class="code-line"><span class="keyword">&lt;?php</span></div>
+                                            <div class="code-line"><span class="comment">// Simple return value</span></div>
+                                            <div class="code-line"><span class="keyword">function</span> <span class="function">fullName</span>($first, $last) {</div>
+                                            <div class="code-line">    <span class="keyword">return</span> $first . <span class="string">" "</span> . $last;</div>
+                                            <div class="code-line">}</div>
+                                            <div class="code-line">$name = <span class="function">fullName</span>(<span class="string">"Ada"</span>, <span class="string">"Lovelace"</span>);</div>
+                                            <div class="code-line"><span class="function">echo</span> <span class="string">"Name: "</span> . $name; <span class="comment">// Name: Ada Lovelace</span></div>
+                                            <div class="code-line"></div>
+                                       <div class="code-line"><span class="keyword">?&gt;</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+            
+                  
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script>
+        // Inject Reveal's print CSS when ?print-pdf is present
+        (function() {
+            const isPrint = window.location.search.match(/print-pdf/gi);
+            if (isPrint) {
+                document.documentElement.classList.add('print-pdf');
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css';
+                document.head.appendChild(link);
+                const pdf = document.createElement('link');
+                pdf.rel = 'stylesheet';
+                pdf.type = 'text/css';
+                pdf.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/print-pdf/print-pdf.css';
+                document.head.appendChild(pdf);
+            }
+        })();
+    </script>
+    <script>
+        (function() {
+            const stored = localStorage.getItem('theme');
+            const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            const initial = stored || (prefersLight ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', initial);
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            const applyLabel = () => {
+                const mode = document.documentElement.getAttribute('data-theme');
+                if (mode === 'light') {
+                    btn.textContent = '☀️';
+                    btn.style.color = '#0b0f14';
+                    btn.style.background = 'rgba(255,255,255,0.85)';
+                    btn.style.borderColor = 'rgba(0,0,0,0.12)';
+                } else {
+                    btn.textContent = '🌙';
+                    btn.style.color = '#ffffff';
+                    btn.style.background = 'rgba(255,255,255,0.12)';
+                    btn.style.borderColor = 'rgba(255,255,255,0.2)';
+                }
+            };
+            applyLabel();
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                applyLabel();
+            });
+        })();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-renumber step numbers sequentially in DOM order
+            const renumberSteps = () => {
+                const stepNodes = document.querySelectorAll('.slides .step-number');
+                let counter = 1;
+                stepNodes.forEach(node => {
+                    node.textContent = String(counter).padStart(2, '0');
+                    counter += 1;
+                });
+            };
+            renumberSteps();
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.width = `${Math.random() * 5 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particlesContainer.appendChild(particle);
+                
+                // Animate particles
+                anime({
+                    targets: particle,
+                    translateX: () => anime.random(-50, 50) + 'px',
+
+                    translateY: () => anime.random(-50, 50) + 'px',
+                    scale: () => [0.1, anime.random(1, 1.5)],
+                    opacity: () => anime.random(0.1, 0.5),
+                    duration: () => anime.random(5000, 10000),
+                    delay: () => anime.random(0, 1000),
+                    direction: 'alternate',
+                    loop: true,
+                    easing: 'easeInOutSine'
+                });
+            }
+            
+            // Initialize Reveal.js
+            Reveal.initialize({
+                hash: true,
+                center: false,
+                progress: true,
+                controls: true,
+                transition: 'slide',
+                backgroundTransition: 'fade'
+            });
+            
+            // Add copy-to-clipboard buttons to code blocks
+            const addCopyButtons = () => {
+                document.querySelectorAll('.code-block').forEach(block => {
+                    if (block.querySelector('.copy-btn')) return;
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'copy-btn';
+                    button.textContent = 'Copy';
+                    button.title = 'Copy code to clipboard';
+                    button.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const lines = Array.from(block.querySelectorAll('.code-line'))
+                            .map(line => line.textContent.replace(/\u00A0/g, ' '));
+                        const codeText = lines.join('\n').replace(/\s+$/,'');
+                        try {
+                            await navigator.clipboard.writeText(codeText);
+                            const original = button.textContent;
+                            button.textContent = 'Copied!';
+                            setTimeout(() => button.textContent = original, 1500);
+                        } catch (err) {
+                            const original = button.textContent;
+                            button.textContent = 'Press Ctrl/Cmd+C';
+                            setTimeout(() => button.textContent = original, 2000);
+                        }
+                    });
+                    block.appendChild(button);
+                });
+            };
+            
+            addCopyButtons();
+            
+            // Set up array animations
+            const setupArrayAnimations = () => {
+                // Indexed array animation
+                document.querySelectorAll('#indexed-array-demo .array-element').forEach(element => {
+                    element.addEventListener('click', function() {
+                        const valueElement = this.querySelector('.array-value');
+                        
+                        // Toggle animation
+                        if (valueElement.style.opacity === '1') {
+                            anime({
+                                targets: valueElement,
+                                opacity: 0,
+                                translateY: 10,
+                                duration: 300,
+                                easing: 'easeOutQuad'
+                            });
+                        } else {
+                            anime({
+                                targets: valueElement,
+                                opacity: 1,
+                                translateY: 0,
+                                duration: 500,
+                                easing: 'easeOutElastic(1, .5)'
+                            });
+                        }
+                    });
+                });
+                
+                // Associative array animation
+                document.querySelectorAll('#assoc-array-demo .assoc-array-element').forEach(element => {
+                    element.addEventListener('click', function() {
+                        const valueElement = this.querySelector('.assoc-array-value');
+                        
+                        // Toggle animation
+                        if (valueElement.style.opacity === '1') {
+                            anime({
+                                targets: valueElement,
+                                opacity: 0,
+                                translateX: 10,
+                                duration: 300,
+                                easing: 'easeOutQuad'
+                            });
+                        } else {
+                            anime({
+                                targets: valueElement,
+                                opacity: 1,
+                                translateX: 0,
+                                duration: 500,
+                                easing: 'easeOutElastic(1, .5)'
+                            });
+                        }
+                    });
+                });
+            };
+            
+            setupArrayAnimations();
+            
+            // Animate elements when slide becomes active
+            Reveal.on('slidechanged', function(event) {
+                const currentSlide = event.currentSlide;
+                
+                // Animate title and subtitle
+                anime({
+                    targets: currentSlide.querySelector('h1, h2'),
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutExpo'
+                });
+                
+                // Animate subtitle if exists
+                if (currentSlide.querySelector('.subtitle')) {
+                    anime({
+                        targets: currentSlide.querySelector('.subtitle'),
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        delay: 300,
+                        duration: 800,
+                        easing: 'easeOutExpo'
+                    });
+                }
+                
+                // Animate cards
+                const cards = currentSlide.querySelectorAll('.card');
+                anime({
+                    targets: cards,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    delay: anime.stagger(200, {start: 500}),
+                    duration: 800,
+                    easing: 'easeOutExpo'
+                });
+                
+                // Animate code lines
+                const codeLines = currentSlide.querySelectorAll('.code-line');
+                anime({
+                    targets: codeLines,
+                    opacity: [0, 1],
+                    translateX: [20, 0],
+                    delay: anime.stagger(50, {start: 800}),
+                    duration: 500,
+                    easing: 'easeOutQuad'
+                });
+                
+                // Ensure new code blocks on this slide have copy buttons
+                addCopyButtons();
+                
+                // Animate floating icons
+                const icons = currentSlide.querySelectorAll('.floating-icon');
+                anime({
+                    targets: icons,
+                    opacity: [0, 1],
+                    scale: [0.5, 1],
+                    delay: anime.stagger(200, {start: 1200}),
+                    duration: 1000,
+                    endDelay: 500,
+                    easing: 'easeOutElastic(1, .5)'
+                });
+                
+                // Add floating animation to icons
+                icons.forEach(icon => {
+                    anime({
+                        targets: icon,
+                        translateY: ['-15px', '15px'],
+                        direction: 'alternate',
+                        loop: true,
+                        duration: 3000 + Math.random() * 1000,
+                        easing: 'easeInOutSine'
+                    });
+                    
+                    anime({
+                        targets: icon,
+                        rotate: ['-5deg', '5deg'],
+                        direction: 'alternate',
+                        loop: true,
+                        duration: 2000 + Math.random() * 1000,
+                        easing: 'easeInOutSine'
+                    });
+                });
+                
+                // Special animation for array elements
+                if (currentSlide.querySelector('#indexed-array-demo')) {
+                    anime({
+                        targets: currentSlide.querySelectorAll('#indexed-array-demo .array-element'),
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        delay: anime.stagger(100),
+                        duration: 800,
+                        easing: 'easeOutExpo'
+                    });
+                }
+                
+                if (currentSlide.querySelector('#assoc-array-demo')) {
+                    anime({
+                        targets: currentSlide.querySelectorAll('#assoc-array-demo .assoc-array-element'),
+                        opacity: [0, 1],
+                        translateX: [20, 0],
+                        delay: anime.stagger(100),
+                        duration: 800,
+                        easing: 'easeOutExpo'
+                    });
+                }
+            });
+            
+            // Trigger animations for the first slide
+            Reveal.on('ready', function(event) {
+                const currentSlide = event.currentSlide;
+                
+                // Animate title
+                anime({
+                    targets: currentSlide.querySelector('h1'),
+                    opacity: [0, 1],
+                    translateY: [50, 0],
+                    duration: 800,
+                    easing: 'easeOutExpo'
+                });
+                
+                // Animate subtitle if exists
+                if (currentSlide.querySelector('.subtitle')) {
+                    anime({
+                        targets: currentSlide.querySelector('.subtitle'),
+                        opacity: [0, 1],
+                        translateY: [30, 0],
+                        delay: 500,
+                        duration: 800,
+                        easing: 'easeOutExpo'
+                    });
+                }
+                
+                // Animate floating icons
+                const icons = currentSlide.querySelectorAll('.floating-icon');
+                anime({
+                    targets: icons,
+                    opacity: [0, 1],
+                    scale: [0.5, 1],
+                    delay: anime.stagger(300, {start: 1000}),
+                    duration: 800,
+                    easing: 'easeOutElastic(1, .5)'
+                });
+                
+                // Add floating animation to icons
+                icons.forEach(icon => {
+                    anime({
+                        targets: icon,
+                        translateY: ['-15px', '15px'],
+                        direction: 'alternate',
+                        loop: true,
+                        duration: 3000 + Math.random() * 1000,
+                        easing: 'easeInOutSine'
+                    });
+                });
+            });
+            
+            // Add some random glowing effects to the background
+            setInterval(() => {
+                const glow = document.createElement('div');
+                glow.style.position = 'absolute';
+                glow.style.width = '150px';
+                glow.style.height = '150px';
+                glow.style.borderRadius = '50%';
+                glow.style.background = `radial-gradient(circle, rgba(${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, ${Math.random() * 155 + 100}, 0.1) 0%, rgba(0,0,0,0) 70%)`;
+                glow.style.left = `${Math.random() * 100}%`;
+                glow.style.top = `${Math.random() * 100}%`;
+                glow.style.transform = 'translate(-50%, -50%)';
+                glow.style.filter = 'blur(20px)';
+                glow.style.opacity = '0';
+                glow.style.zIndex = '-1';
+                document.body.appendChild(glow);
+                
+                anime({
+                    targets: glow,
+                    opacity: [0, 0.3, 0],
+                    scale: [0.5, 1.5],
+                    duration: 1200,
+                    easing: 'easeOutSine',
+                    complete: () => {
+                        glow.remove();
+                    }
+                });
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>

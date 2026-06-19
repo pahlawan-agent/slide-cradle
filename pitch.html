@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushafi Pitch Deck - Transforming Quranic Education</title>
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #c33a38;
+            /* Crimson - from reference */
+            --secondary: #1a1a1a;
+            --accent: #2c514c;
+            /* Deep Green - from reference */
+            --gold: #d49a44;
+            /* Ochre/Gold - from reference */
+            --orange: #e27d3c;
+            /* Orange - from reference */
+            --bg-light: #ffffff;
+            --bg-soft: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --border-light: #eeeeee;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .reveal {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-light);
+            font-size: 32px;
+            /* Set a base font size for better scaling */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3 {
+            font-family: 'Playfair Display', serif;
+            text-transform: none;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-dark);
+        }
+
+        .reveal h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .reveal h2 {
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .reveal h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .reveal h3 {
+            font-size: 1.4em;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .reveal section {
+            text-align: left;
+            padding: 80px 100px;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
+            background: var(--bg-light);
+        }
+
+        .reveal p,
+        .reveal li {
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .reveal li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .reveal li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Premium Glass Card */
+        .glass-card {
+            background: var(--bg-soft);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 30px 40px;
+            margin: 10px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            border-top: 4px solid var(--primary);
+            min-height: 180px;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: stretch;
+            margin-top: 20px;
+        }
+
+        .stat-number {
+            font-size: 4em;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: var(--primary);
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 0;
+            color: var(--text-muted);
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* Custom Animation Canvas */
+        #engine-viz {
+            width: 100%;
+            height: 500px;
+            background: var(--bg-soft);
+            border-radius: 8px;
+            position: relative;
+            margin-top: 40px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .node {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .node i {
+            font-size: 1.8em;
+            color: var(--primary);
+        }
+
+        .node-label {
+            position: absolute;
+            top: 100px;
+            width: 150px;
+            text-align: center;
+            font-size: 0.7em;
+            color: var(--text-dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .connector-line {
+            position: absolute;
+            background: var(--border-light);
+            height: 2px;
+            z-index: 1;
+            transform-origin: left center;
+        }
+
+        .signal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .progress-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .footer-logo {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            z-index: 100;
+            font-weight: 700;
+            letter-spacing: 2px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="footer-logo">Mushafi</div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Hero -->
+            <section>
+                <div style="text-align: left;">
+                    <div class="tag">Digital Marketplace</div>
+                    <h1>Mushafi</h1>
+                    <h2 style="color: var(--text-muted); font-style: italic; opacity: 0.8; padding-bottom: 0;">
+                        Connecting the World to the Wisdom of the Quran</h2>
+                    <p style="max-width: 700px; margin: 40px 0; font-size: 1.25em; color: var(--text-muted);">
+                        A Peer-to-Peer ecosystem democratizing religious education through AI-powered matchmaking and
+                        global expertise.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Problem -->
+            <section>
+                <div class="tag">The Crisis</div>
+                <h2>Global Inaccessibility</h2>
+                <div class="grid-2">
+                    <div class="glass-card" style="border-top-color: var(--primary);">
+                        <div class="icon-box"><i class="fas fa-globe-africa"></i></div>
+                        <h3>Localized Learning</h3>
+                        <p>Authentic Quranic education is locked within geographical borders, leaving millions in the
+                            West without quality guidance.</p>
+                    </div>
+                    <div class="glass-card" style="border-top-color: var(--accent);">
+                        <div class="icon-box" style="color: var(--accent);"><i class="fas fa-user-graduate"></i></div>
+                        <h3>Marginalized Scholars</h3>
+                        <p>World-class experts lack the platform to monetize their knowledge, leading to a massive drain
+                            of religious talent.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution -->
+            <section>
+                <div class="tag">The Vision</div>
+                <h2>The Uber for Quranic Education</h2>
+                <div class="grid-2">
+                    <div class="glass-card" style="border-top-color: var(--gold);">
+                        <div class="icon-box" style="color: var(--gold);"><i class="fas fa-layer-group"></i></div>
+                        <h3>Matchmaking Marketplace</h3>
+                        <p>Connecting learners with verified Huffaz instantly. On-demand, flexible, and verified
+                            sessions.</p>
+                        <ul>
+                            <li>Real-time Audio Correction</li>
+                            <li>Global Teacher Network</li>
+                            <li>Flexible Gig-Economy Model</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card" style="border-top-color: var(--orange);">
+                        <div class="icon-box" style="color: var(--orange);"><i class="fas fa-bolt"></i></div>
+                        <h3>Strategic Complexity</h3>
+                        <p>Scaling from a niche tool to a global platform by leveraging our existing 100K-user
+                            technology stack.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animation Slide: How it Works -->
+            <section>
+                <div class="tag">Process flow</div>
+                <h2>Automated Matchmaking Engine</h2>
+                <div id="engine-viz">
+                    <div id="connectors"></div>
+                    <div class="node" style="left: 10%; top: 35%; border-color: var(--primary);" id="student-node">
+                        <i class="fas fa-user-graduate" style="color: var(--primary);"></i>
+                        <div class="node-label">Student</div>
+                    </div>
+                    <div class="node" style="left: 45%; top: 35%; border-color: var(--accent);" id="ai-node">
+                        <i class="fas fa-microchip" style="color: var(--accent);"></i>
+                        <div class="node-label">AI Filter</div>
+                    </div>
+                    <div class="node expert-node" style="left: 80%; top: 5%; border-color: var(--gold);" id="exp-1">
+                        <i class="fas fa-quran" style="color: var(--gold);"></i>
+                        <div class="node-label">Expert 1</div>
+                    </div>
+                    <div class="node expert-node" style="left: 80%; top: 35%; border-color: var(--orange);" id="exp-2">
+                        <i class="fas fa-quran" style="color: var(--orange);"></i>
+                        <div class="node-label">Expert 2</div>
+                    </div>
+                    <div class="node expert-node" style="left: 80%; top: 65%; border-color: var(--primary);" id="exp-3">
+                        <i class="fas fa-quran" style="color: var(--primary);"></i>
+                        <div class="node-label">Expert 3</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Readiness -->
+            <section>
+                <div class="tag">Validation</div>
+                <h2>Global Traction</h2>
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <div class="stat-number">100K+</div>
+                        <div style="font-size: 0.8em; color: var(--accent);">SUCCESSFUL USERS</div>
+                        <p style="margin-top: 15px;">A battle-tested technology stack inherited from our phase 1
+                            application.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="stat-number">TRL 2</div>
+                        <div style="font-size: 0.8em; color: var(--accent);">CONCEPT FORMULATION</div>
+                        <p style="margin-top: 15px;">Proprietary AI filters and community data ready for mass scaling.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Modules -->
+            <section>
+                <div class="tag">Core Infrastructure</div>
+                <h2>Scalable Technology Stack</h2>
+                <div class="grid-2">
+                    <div class="glass-card" style="border-top-color: var(--primary); min-height: 200px; padding: 30px;">
+                        <h3 style="font-size: 1.25em;"><i class="fas fa-brain" style="color:var(--primary)"></i> AI
+                            Feedback</h3>
+                        <p>Real-time ASR detecting Tajweed mistakes instantly with 98% accuracy.</p>
+                    </div>
+                    <div class="glass-card" style="border-top-color: var(--accent); min-height: 200px; padding: 30px;">
+                        <h3 style="font-size: 1.25em;"><i class="fas fa-bolt" style="color:var(--accent)"></i>
+                            Matchmaking</h3>
+                        <p>"Fastest Finger" algorithm connecting students to experts in under 60 seconds.</p>
+                    </div>
+                    <div class="glass-card" style="border-top-color: var(--gold); min-height: 200px; padding: 30px;">
+                        <h3 style="font-size: 1.25em;"><i class="fas fa-video" style="color:var(--gold)"></i> Live
+                            WebRTC</h3>
+                        <p>Low-latency video conferencing for high-depth tutoring sessions.</p>
+                    </div>
+                    <div class="glass-card" style="border-top-color: var(--orange); min-height: 200px; padding: 30px;">
+                        <h3 style="font-size: 1.25em;"><i class="fas fa-wallet" style="color:var(--orange)"></i>
+                            Multi-Split</h3>
+                        <p>Automated commission logic handling global payouts and escrow securement.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section>
+                <div class="tag">The Future</div>
+                <h2>Roadmap to Global Scale</h2>
+                <div class="glass-card"
+                    style="border-top-color: var(--primary); padding: 25px 40px; min-height: 150px;">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--primary); font-size: 1em; margin-bottom: 5px;">Phase 1: Mobilization
+                        </h3>
+                        <p style="font-size: 0.85em;">Partnering with IIUM and Tahfeez institutions to verify the first
+                            1,000 experts.</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--accent); font-size: 1em; margin-bottom: 5px;">Phase 2: Acquisition</h3>
+                        <p style="font-size: 0.85em;">Aggressive content marketing targeting digitally native Millennial
+                            Muslims.</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--gold); font-size: 1em; margin-bottom: 5px;">Phase 3: Geographic
+                            Expansion</h3>
+                        <p style="font-size: 0.85em;">Scaling to the UK and USA where high-quality Quranic education is
+                            a premium scarce service.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <section style="text-align: center;">
+                <h1 style="font-size: 4em; color: var(--text-dark);">The Future of Faith</h1>
+                <p style="font-size: 1.4em; color: var(--primary); font-style: italic; margin-bottom: 30px;">"The best
+                    among you are those who learn the Quran and teach it."</p>
+                <div style="margin-top: 60px;">
+                    <button
+                        style="background: var(--primary); color: white; border: none; padding: 20px 50px; border-radius: 4px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1em; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;">
+                        Join the Alpha
+                    </button>
+                    <p style="margin-top: 30px; color: var(--text-muted); font-size: 0.9em; letter-spacing: 1px;">
+                        mushafi.app | salam@mushafi.app</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script>
+        // Initialize Reveal.js
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            progress: true,
+            transition: 'convex',
+            backgroundTransition: 'fade',
+            mouseWheel: true,
+            controls: true,
+            touch: true,
+            width: 1280,
+            height: 720,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+
+        // Initialize Particles
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.2, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#cba35c", "opacity": 0.1, "width": 1 },
+                "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+            }
+        });
+
+        // Custom Anime.js Technical Engine Animation
+        function runEngineAnimation() {
+            const viz = document.getElementById('engine-viz');
+            if (!viz) return;
+
+            // Clear previous signals and connectors
+            viz.querySelectorAll('.signal, .connector-line').forEach(el => el.remove());
+            const connectors = document.getElementById('connectors');
+
+            const student = document.getElementById('student-node');
+            const ai = document.getElementById('ai-node');
+            const experts = Array.from(document.querySelectorAll('.expert-node'));
+            const varComputed = getComputedStyle(document.documentElement);
+
+            // Helper to draw a line between two elements
+            const drawLine = (start, end) => {
+                const line = document.createElement('div');
+                line.className = 'connector-line';
+                connectors.appendChild(line);
+
+                const x1 = start.offsetLeft + start.offsetWidth / 2;
+                const y1 = start.offsetTop + start.offsetHeight / 2;
+                const x2 = end.offsetLeft + end.offsetWidth / 2;
+                const y2 = end.offsetTop + end.offsetHeight / 2;
+
+                const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                line.style.width = length + 'px';
+                line.style.left = x1 + 'px';
+                line.style.top = y1 + 'px';
+                line.style.transform = `rotate(${angle}deg)`;
+
+                anime({
+                    targets: line,
+                    opacity: [0, 0.2],
+                    duration: 1000,
+                    easing: 'linear'
+                });
+            };
+
+            // Draw initial paths
+            drawLine(student, ai);
+            experts.forEach(exp => drawLine(ai, exp));
+
+            const createSignalStream = (startNode, endNode, count = 3, interval = 150, color = 'var(--accent)') => {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const signal = document.createElement('div');
+                        signal.className = 'signal';
+                        signal.style.background = color;
+                        signal.style.boxShadow = `0 0 15px ${color}`;
+                        viz.appendChild(signal);
+
+                        const startX = startNode.offsetLeft + startNode.offsetWidth / 2;
+                        const startY = startNode.offsetTop + startNode.offsetHeight / 2;
+                        const endX = endNode.offsetLeft + endNode.offsetWidth / 2;
+                        const endY = endNode.offsetTop + endNode.offsetHeight / 2;
+
+                        signal.style.left = startX + 'px';
+                        signal.style.top = startY + 'px';
+
+                        anime({
+                            targets: signal,
+                            left: endX,
+                            top: endY,
+                            opacity: [0, 1, 0],
+                            scale: [0.5, 1.5, 1],
+                            easing: 'easeInOutQuad',
+                            duration: 1500,
+                            complete: () => signal.remove()
+                        });
+                    }, i * interval);
+                }
+            };
+
+            const animateSequence = () => {
+                // 1. Student sends to AI
+                createSignalStream(student, ai, 5, 200, 'var(--primary)');
+
+                // 2. AI Processing
+                setTimeout(() => {
+                    anime({
+                        targets: ai,
+                        scale: [1, 1.1, 1],
+                        borderColor: [varComputed.getPropertyValue('--border-light'), varComputed.getPropertyValue('--accent'), varComputed.getPropertyValue('--border-light')],
+                        boxShadow: ['0 10px 20px rgba(0,0,0,0.05)', '0 10px 40px rgba(44, 81, 76, 0.2)', '0 10px 20px rgba(0,0,0,0.05)'],
+                        duration: 800,
+                        easing: 'easeInOutSine'
+                    });
+                }, 1000);
+
+                // 3. AI broadcasts to Experts
+                setTimeout(() => {
+                    const colors = ['var(--gold)', 'var(--orange)', 'var(--primary)'];
+                    experts.forEach((exp, i) => {
+                        createSignalStream(ai, exp, 3, 200, colors[i]);
+
+                        setTimeout(() => {
+                            anime({
+                                targets: exp,
+                                scale: [1, 1.1, 1],
+                                borderColor: ['var(--border-light)', colors[i], 'var(--border-light)'],
+                                duration: 800,
+                                easing: 'easeOutQuad'
+                            });
+                        }, 1000 + (i * 100));
+                    });
+                }, 2000);
+            };
+
+            animateSequence();
+            if (viz.dataset.intervalId) clearInterval(parseInt(viz.dataset.intervalId));
+            const id = setInterval(animateSequence, 6000);
+            viz.dataset.intervalId = id.toString();
+        }
+
+        // Custom Anime.js animations on slide change
+        Reveal.on('slidechanged', event => {
+            const currentSlide = event.currentSlide;
+
+            // Trigger engine animation if on that slide
+            if (currentSlide.querySelector('#engine-viz')) {
+                runEngineAnimation();
+            }
+
+            // Slide content entrance
+            anime({
+                targets: currentSlide.querySelectorAll('.glass-card, h2, .tag'),
+                translateY: [20, 0],
+                opacity: [0, 1],
+                delay: anime.stagger(100),
+                duration: 800,
+                easing: 'easeOutQuart'
+            });
+        });
+
+        // Run once on init
+        Reveal.on('ready', () => {
+            if (Reveal.getCurrentSlide().querySelector('#engine-viz')) {
+                runEngineAnimation();
+            }
+        });
+    </script>
+</body>
+
+</html>
